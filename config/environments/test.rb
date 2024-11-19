@@ -22,9 +22,14 @@ Rails.application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
-  config.action_controller.perform_caching = false
-  config.cache_store = :null_store
+  config.active_record.cache_versioning = false
 
+  config.action_controller.perform_caching = true
+  
+  config.cache_store = :redis_store, { 
+    url: ENV['REDIS_URL'] || 'redis://localhost:6379/2', 
+    password: ENV['REDIS_PASSWORD'] 
+  }
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable
 
