@@ -45,14 +45,14 @@ Caso tenha o docker instalado, use os seguintes comandos para subir o conteiner 
 ### Bundle exec
     bundle exec rspec
 
-### Docer run
+### Docker run
     docker-compose run app rspec
 
 
 ## Endpoints
 ### Transactions
 
-#### Processa o arquivo txt recebido e retorna o json
++ #### **Processa o arquivo txt recebido e retorna o json**
 
 ```http
   GET /api/v1/transactions/process-file
@@ -99,9 +99,8 @@ Exemplo de resposta:
         }
     ]
 
-### Orders
-
-#### Retorna um pedido
+## Orders
++ #### **Retorna um pedido**
 
 ```http
   GET /api/v1/orders/{id}
@@ -129,7 +128,7 @@ Exemplo resposta:
         ]
     }
 
-#### Retorna uma lista de pedidos
++ #### **Retorna uma lista de pedidos**
 
 ```http
   GET /api/v1/orders/{id}
@@ -154,11 +153,11 @@ Exemplo resposta:
         }
     ]
 
-#### Retorna uma lista de pedidos por periodo
+  + #### **Retorna uma lista de pedidos por periodo**
 
-```http
-  GET /api/v1/orders/search?start_date=YYYY-MM-DD&end_date=YYYY-MM-DD
-```
+    ```http
+    GET /api/v1/orders/search?start_date=YYYY-MM-DD&end_date=YYYY-MM-DD
+    ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
@@ -194,7 +193,7 @@ Rota de acesso ao swagger ui onde é possivel vizualizar e testar os endpoints.
 
 ### Products
 
-#### Retorna um produto
+ + #### **Retorna um produto**
 
 ```http
   GET /api/v1/products/{id}
@@ -211,7 +210,7 @@ Exemplo resposta:
         "value": "string"
     }
 
-#### Retorna ums lista de produtos
++ #### **Retorna uma lista de produtos**
 
 ```http
   GET /api/v1/products/
@@ -225,9 +224,7 @@ Exemplo resposta:
         }
     ]
 
-    ### Products
-
-#### Retorna um produto
++ #### **Retorna um produto**
 
 ```http
   GET /api/v1/users/{id}
@@ -244,7 +241,7 @@ Exemplo resposta:
         "name": "string"
     }
 
-#### Retorna ums lista de usuarios
++ #### **Retorna uma lista de usuarios**
 
 ```http
   GET /api/v1/users/
