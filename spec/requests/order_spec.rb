@@ -6,7 +6,7 @@ RSpec.describe 'api/v1/orders', type: :request do
       tags 'API::V1::Orders'
       produces 'application/json'
       parameter name: :id, in: :path, type: :integer
-      
+
       let(:order) { create(:order) }
       response '200', 'order found' do
         let(:id) { order.id }
@@ -42,12 +42,12 @@ RSpec.describe 'api/v1/orders', type: :request do
             }
           }
         },
-        required: ['order_id', 'date', 'total', 'user', 'products']
+        required: [ 'order_id', 'date', 'total', 'user', 'products' ]
 
         let(:order) { create(:order) }
-        let(:id) { order.id } 
+        let(:id) { order.id }
         run_test!
-      end      
+      end
     end
   end
 
@@ -55,7 +55,7 @@ RSpec.describe 'api/v1/orders', type: :request do
     get 'Retrieves all orders' do
       tags 'API::V1::Orders'
       produces 'application/json'
-      
+
       response '200', 'Orders found' do
         schema type: :array,
           items: {
@@ -70,7 +70,7 @@ RSpec.describe 'api/v1/orders', type: :request do
                   user_id: { type: :integer },
                   name: { type: :string }
                 },
-                required: ['user_id', 'name']
+                required: [ 'user_id', 'name' ]
               },
               products: {
                 type: :array,
@@ -80,11 +80,11 @@ RSpec.describe 'api/v1/orders', type: :request do
                     product_id: { type: :integer },
                     value: { type: :string, format: 'float' }
                   },
-                  required: ['product_id', 'value']
+                  required: [ 'product_id', 'value' ]
                 }
               }
             },
-            required: ['order_id', 'date', 'total', 'user', 'products']
+            required: [ 'order_id', 'date', 'total', 'user', 'products' ]
           }
         let!(:orders) { create_list(:order, 3) }
 
@@ -100,10 +100,10 @@ RSpec.describe 'api/v1/orders', type: :request do
     get 'Retrieves orders within a date range' do
       tags 'API::V1::Orders'
       produces 'application/json'
-    
+
       parameter name: :start_date, in: :query, type: :string, description: 'Start date (YYYY-MM-DD)', example: '2021-02-20'
       parameter name: :end_date, in: :query, type: :string, description: 'End date (YYYY-MM-DD)', example: '2024-11-18'
-    
+
       response '200', 'Orders found' do
         schema type: :array,
           items: {
@@ -118,7 +118,7 @@ RSpec.describe 'api/v1/orders', type: :request do
                   user_id: { type: :integer },
                   name: { type: :string }
                 },
-                required: ['user_id', 'name']
+                required: [ 'user_id', 'name' ]
               },
               products: {
                 type: :array,
@@ -128,16 +128,16 @@ RSpec.describe 'api/v1/orders', type: :request do
                     product_id: { type: :integer },
                     value: { type: :string, format: 'float' }
                   },
-                  required: ['product_id', 'value']
+                  required: [ 'product_id', 'value' ]
                 }
               }
             },
-            required: ['order_id', 'date', 'total', 'user', 'products']
+            required: [ 'order_id', 'date', 'total', 'user', 'products' ]
          }
         let!(:orders) { create_list(:order, 3) }
         let(:start_date) { '2021-02-20' }
         let(:end_date) { '2024-11-18' }
-          
+
         run_test! do |response|
           orders = JSON.parse(response.body)
           expect(orders.count).to eq(3)
@@ -147,7 +147,7 @@ RSpec.describe 'api/v1/orders', type: :request do
       response '400', 'Empty parameters start date and end date' do
         let(:start_date) { "" }
         let(:end_date) { "" }
-        
+
         run_test! do |response|
           body = JSON.parse(response.body)
           expect(response.status).to eq(400)
@@ -158,7 +158,7 @@ RSpec.describe 'api/v1/orders', type: :request do
       response '400', 'Empty parameters start date and end date' do
         let(:start_date) { "" }
         let(:end_date) { "" }
-        
+
         run_test! do |response|
           body = JSON.parse(response.body)
           expect(response.status).to eq(400)
@@ -169,7 +169,7 @@ RSpec.describe 'api/v1/orders', type: :request do
       response '400', 'Start date cannot be later than end date' do
         let(:start_date) { '2024-11-18' }
         let(:end_date) { '2021-02-20' }
-        
+
         run_test! do |response|
           body = JSON.parse(response.body)
           expect(response.status).to eq(400)

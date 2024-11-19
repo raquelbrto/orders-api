@@ -13,7 +13,7 @@ RSpec.describe TransactionGateway, type: :gateway do
     it 'processes the file and creates transactions correctly' do
         transaction_gateway = TransactionGateway.new
         transactions = transaction_gateway.process_file(file)
-    
+
         expect(transactions).to be_an(Array)
         expect(transactions.first['user_id']).to eq(user.id)
         expect(transactions.first['name']).to eq(user.name)
@@ -22,7 +22,7 @@ RSpec.describe TransactionGateway, type: :gateway do
         expect(transactions.first['orders'].first['products'].first['product_id']).to eq(product.product_id)
         expect(transactions.first['orders'].first['products'].first['value']).to eq("817.13")
     end
-  
+
 
     it 'does not process when the file is empty' do
       empty_file = StringIO.new('')
@@ -43,38 +43,38 @@ RSpec.describe TransactionGateway, type: :gateway do
     end
 
     it 'creates transactions correctly when adding a new products to the order' do
-        file_content = 
+        file_content =
         "0000000080                                 Raquel  Kuhn00000008770000000003      817.1320210612\n" +
         "0000000080                                 Raquel  Kuhn00000008770000000005      717.1320210612"
         file = StringIO.new(file_content)
         transaction_gateway = TransactionGateway.new
         transactions = transaction_gateway.process_file(file)
-  
+
         expect(transactions.first['orders'].first['products'].count).to eq(2)
         expect(transactions.first['orders'].first['total']).to eq("1534.26")
       end
 
     it 'update the order total correctly when there is more than one occurrence same product' do
-      file_content =  
+      file_content =
         "0000000080                                 Raquel  Kuhn00000008770000000003      917.1320210612\n" +
         "0000000080                                 Raquel  Kuhn00000008770000000003      717.1320210612\n" +
         "0000000080                                 Raquel  Kuhn00000008770000000003      817.1320210612"
       file = StringIO.new(file_content)
       transaction_gateway = TransactionGateway.new
       transactions = transaction_gateway.process_file(file)
-     
+
       expect(transactions.first['orders'].first['total']).to eq("917.13")
     end
 
     it 'update the order total correctly when there is more than one product' do
-        file_content =  
+        file_content =
           "0000000080                                 Raquel  Kuhn00000008770000000003      917.1320210612\n" +
           "0000000080                                 Raquel  Kuhn00000008770000000004      717.1320210612\n" +
           "0000000080                                 Raquel  Kuhn00000008770000000005      817.1320210612"
         file = StringIO.new(file_content)
         transaction_gateway = TransactionGateway.new
         transactions = transaction_gateway.process_file(file)
-       
+
         expect(transactions.first['orders'].first['total']).to eq("2451.39")
       end
   end

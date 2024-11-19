@@ -1,4 +1,4 @@
 class TransactionSerializer
   include JSONAPI::Serializer
-  attributes 
+  attributes
 end

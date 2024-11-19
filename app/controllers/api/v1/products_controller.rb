@@ -1,7 +1,6 @@
 module Api
   module V1
     class ProductsController < ApplicationController
-
       def index
         @products = Products::ShowAllUseCase.new.execute
         response = ProductPresenter.new(@products).show_all

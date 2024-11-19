@@ -1,5 +1,5 @@
 class OrderGateway
-  def show(id) 
+  def show(id)
     Rails.cache.fetch("order_#{id}", expires_in: 600.seconds) do
       Order.includes(:user, :products).find_by_id(id)
     end
@@ -23,7 +23,7 @@ class OrderGateway
   private
 
   def edit_order(order, order_params, user_id)
-    order.user_id = user_id        
+    order.user_id = user_id
     order.total = order_params["total"]
     order.date = order_params["date"]
   end

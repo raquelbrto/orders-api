@@ -31,16 +31,16 @@ Rails.application.configure do
 
   config.cache_classes = true
 
-  config.cache_store = :redis_cache_store, { 
-    url: 'redis://localhost:6379/1',
-    password: ENV['REDIS_PASSWORD'],
-    namespace: 'orders_api_cache',
+  config.cache_store = :redis_cache_store, {
+    url: "redis://localhost:6379/1",
+    password: ENV["REDIS_PASSWORD"],
+    namespace: "orders_api_cache",
     connect_timeout:    30,  # Defaults to 1 second
     read_timeout:       0.2, # Defaults to 1 second
     write_timeout:      0.2, # Defaults to 1 second
     reconnect_attempts: 2,   # Defaults to 1
 
-    error_handler: -> (method:, returning:, exception:) {
+    error_handler: ->(method:, returning:, exception:) {
       Sentry.capture_exception exception, level: "warning",
         tags: { method: method, returning: returning }
     }

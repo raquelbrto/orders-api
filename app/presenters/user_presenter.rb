@@ -1,11 +1,11 @@
-class UserPresenter 
+class UserPresenter
   def initialize(user)
     @user = user
   end
-    
+
   def show
     begin
-      if !@user.is_a?(User) || @user.nil? || @user.blank? 
+      if !@user.is_a?(User) || @user.nil? || @user.blank?
         not_found_message
       else
         { data: @user, status: 200 }
@@ -28,10 +28,10 @@ class UserPresenter
 
   private
     def error_message
-      { data: { error: 'Internal server error.' }, status:  500 }
+      { data: { error: "Internal server error." }, status:  500 }
     end
 
     def not_found_message
-      { data: { message: 'User not found' }, status: 404 }
+      { data: { message: "User not found" }, status: 404 }
     end
 end

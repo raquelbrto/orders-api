@@ -4,7 +4,7 @@ class OrderPresenter
   end
 
   def show
-    begin 
+    begin
       if !@order.is_a?(Order) || @order.nil? || @order.blank?
         not_found_message
       else
@@ -18,10 +18,10 @@ class OrderPresenter
 
   def show_all
     begin
-      order_mapper = @order.map do |order| 
+      order_mapper = @order.map do |order|
         order_info(order)
       end
-      { data: order_mapper, status: 200 }    
+      { data: order_mapper, status: 200 }
     rescue StandardError => e
       Rails.logger.error("Error #{e.message}")
       error_message
@@ -34,7 +34,7 @@ class OrderPresenter
       {
         order_id: order.id,
         date: order.date,
-        total: format('%.2f', order.total),
+        total: format("%.2f", order.total),
         user: user_info(order.user),
         products: products_info(order)
       }
@@ -46,21 +46,21 @@ class OrderPresenter
         name: user.name
       }
     end
-    
+
     def products_info(order)
       order.products.map do |product|
         {
           product_id: product.product_id,
-          value: format('%.2f', product.value)
+          value: format("%.2f", product.value)
         }
       end
     end
 
     def error_message
-      { data: { error: 'Internal server error.' }, status:  500 }
+      { data: { error: "Internal server error." }, status:  500 }
     end
 
     def not_found_message
-      { data: { message: 'Order not found' }, status: 404 }
+      { data: { message: "Order not found" }, status: 404 }
     end
 end

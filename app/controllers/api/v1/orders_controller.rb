@@ -1,7 +1,6 @@
 module Api
   module V1
     class OrdersController < ApplicationController
-
       def index
         @orders = Orders::ShowAllUseCase.new.execute
         response = OrderPresenter.new(@orders).show_all
@@ -20,7 +19,7 @@ module Api
           begin
             start_date = Date.parse(params[:start_date])
             end_date = Date.parse(params[:end_date])
-      
+
             if start_date > end_date
               render json: { message: "Start date cannot be later than end date." }, status: 400
             else

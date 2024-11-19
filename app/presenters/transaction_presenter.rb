@@ -12,7 +12,7 @@ class TransactionPresenter
 
   def show
     begin
-      if @transaction.is_a?(Transaction) || @transaction.nil? || @transaction.blank? 
+      if @transaction.is_a?(Transaction) || @transaction.nil? || @transaction.blank?
         not_found_message
       else
         { data: @transaction, status: 200 }
@@ -36,13 +36,13 @@ class TransactionPresenter
 
   def mapper_transaction(transaction)
     {
-      'user_id' => transaction['user_id'],
-      'name' => transaction['name'],
-      'orders' => transaction['orders'].map do |order|
+      "user_id" => transaction["user_id"],
+      "name" => transaction["name"],
+      "orders" => transaction["orders"].map do |order|
         {
-          'order_id' => order['order_id'],
-          'total' => order['total'],
-          'products' => mapper_product(order['products'])
+          "order_id" => order["order_id"],
+          "total" => order["total"],
+          "products" => mapper_product(order["products"])
         }
       end
     }
@@ -51,17 +51,17 @@ class TransactionPresenter
   def mapper_product(products)
     products.map do |product|
       {
-        'product_id' => product['product_id'],
-        'value' => product['value']
+        "product_id" => product["product_id"],
+        "value" => product["value"]
       }
     end
   end
 
   def error_message
-    { data: { error: 'Internal server error.' }, status:  500 }
+    { data: { error: "Internal server error." }, status:  500 }
   end
 
   def not_found_message
-    { data: { message: 'Product not found' }, status: 404 }
+    { data: { message: "Product not found" }, status: 404 }
   end
 end

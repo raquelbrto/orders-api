@@ -2,7 +2,7 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/products', type: :request do
   path '/api/v1/products/{id}' do
-    get 'Retrieve product' do   
+    get 'Retrieve product' do
       tags 'API::V1::Products'
       produces 'application/json'
       parameter name: :id, in: :path, type: :integer
@@ -13,9 +13,9 @@ RSpec.describe 'api/v1/products', type: :request do
             product_id: { type: :integer },
             value: { type: :string }
           }
-  
+
         let(:product) { create(:product_response) }
-        let(:id) { product.id } 
+        let(:id) { product.id }
         run_test!
       end
 
@@ -30,7 +30,7 @@ RSpec.describe 'api/v1/products', type: :request do
   end
 
   path '/api/v1/products/' do
-    get 'Retrieve products' do   
+    get 'Retrieve products' do
       tags 'API::V1::Products'
       produces 'application/json'
 
@@ -42,9 +42,9 @@ RSpec.describe 'api/v1/products', type: :request do
             product_id: { type: :integer },
             value: { type: :string }
           },
-          required: ['product_id', 'value'] 
+          required: [ 'product_id', 'value' ]
         }
-  
+
         let!(:product) { create_list(:product_response, 3) }
 
         run_test! do |response|
@@ -61,9 +61,9 @@ RSpec.describe 'api/v1/products', type: :request do
             product_id: { type: :integer },
             value: { type: :string }
           },
-          required: ['product_id', 'value'] 
+          required: [ 'product_id', 'value' ]
         }
-  
+
         let!(:product) { create_list(:product_response, 3) }
 
         run_test! do |response|

@@ -1,4 +1,4 @@
 class OrderSerializer
   include JSONAPI::Serializer
-  attributes 
+  attributes
 end

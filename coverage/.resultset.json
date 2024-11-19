@@ -575,7 +575,6 @@
       "/home/raquel/orders-api/app/gateways/order_gateway.rb": {
         "lines": [
           1,
-          null,
           1,
           2,
           2,
@@ -612,7 +611,7 @@
           1,
           1,
           2,
-          1,
+          2,
           null,
           null,
           null,
@@ -637,10 +636,9 @@
       "/home/raquel/orders-api/app/gateways/user_gateway.rb": {
         "lines": [
           1,
-          null,
           1,
           2,
-          1,
+          2,
           null,
           null,
           null,
@@ -678,8 +676,6 @@
           null,
           1,
           1,
-          null,
-          null,
           null
         ]
       },
@@ -688,7 +684,6 @@
           1,
           1,
           1,
-          null,
           1,
           1,
           1,
@@ -836,7 +831,6 @@
           1,
           1,
           1,
-          null,
           1,
           2,
           2,
@@ -924,7 +918,6 @@
           1,
           1,
           1,
-          null,
           1,
           0,
           0,
@@ -1044,7 +1037,6 @@
           1,
           1,
           1,
-          null,
           1,
           1,
           1,
@@ -1122,6 +1114,6 @@
         ]
       }
     },
-    "timestamp": 1731976237
+    "timestamp": 1731981833
   }
 }

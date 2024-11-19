@@ -1,6 +1,5 @@
 class UserGateway
-
-  def show(id) 
+  def show(id)
     Rails.cache.fetch("user_#{id}", expires_in: 600.seconds) do
       User.find_by_id(id)
     end

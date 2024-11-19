@@ -5,14 +5,14 @@ class ProductPresenter
 
   def show
     begin
-      if !@product.is_a?(Product) || @product.nil? || @product.blank? 
+      if !@product.is_a?(Product) || @product.nil? || @product.blank?
         not_found_message
       else
-        { 
+        {
           data: {
             product_id: @product.product_id,
-            value: format('%.2f', @product.value)
-          }, 
+            value: format("%.2f", @product.value)
+          },
           status: 200
         }
       end
@@ -33,10 +33,10 @@ class ProductPresenter
 
   private
     def error_message
-      { data: { error: 'Internal server error.' }, status:  500 }
+      { data: { error: "Internal server error." }, status:  500 }
     end
 
     def not_found_message
-      { data: { message: 'Product not found.' }, status: 404 }
+      { data: { message: "Product not found." }, status: 404 }
     end
 end
