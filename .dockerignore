@@ -4,9 +4,6 @@
 /.git/
 /.gitignore
 
-# Ignore bundler config.
-/.bundle
-
 # Ignore all environment files (except templates).
 /.env*
 !/.env*.erb

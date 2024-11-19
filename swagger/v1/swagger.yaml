@@ -1,0 +1,334 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/orders/{id}":
+    get:
+      summary: Retrieve order
+      tags:
+      - API::V1::Orders
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Retrieve order by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order_id:
+                    type: integer
+                  date:
+                    type: string
+                    format: date
+                  total:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      user_id:
+                        type: integer
+                      name:
+                        type: string
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: integer
+                        value:
+                          type: string
+                required:
+                - order_id
+                - date
+                - total
+                - user
+                - products
+  "/api/v1/orders/":
+    get:
+      summary: Retrieves all orders
+      tags:
+      - API::V1::Orders
+      responses:
+        '200':
+          description: Orders found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    order_id:
+                      type: integer
+                    date:
+                      type: string
+                      format: date
+                    total:
+                      type: string
+                      format: float
+                    user:
+                      type: object
+                      properties:
+                        user_id:
+                          type: integer
+                        name:
+                          type: string
+                      required:
+                      - user_id
+                      - name
+                    products:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          product_id:
+                            type: integer
+                          value:
+                            type: string
+                            format: float
+                        required:
+                        - product_id
+                        - value
+                  required:
+                  - order_id
+                  - date
+                  - total
+                  - user
+                  - products
+  "/api/v1/orders/search":
+    get:
+      summary: Retrieves orders within a date range
+      tags:
+      - API::V1::Orders
+      parameters:
+      - name: start_date
+        in: query
+        description: Start date (YYYY-MM-DD)
+        example: '2021-02-20'
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date (YYYY-MM-DD)
+        example: '2024-11-18'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Orders found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    order_id:
+                      type: integer
+                    date:
+                      type: string
+                      format: date
+                    total:
+                      type: string
+                      format: float
+                    user:
+                      type: object
+                      properties:
+                        user_id:
+                          type: integer
+                        name:
+                          type: string
+                      required:
+                      - user_id
+                      - name
+                    products:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          product_id:
+                            type: integer
+                          value:
+                            type: string
+                            format: float
+                        required:
+                        - product_id
+                        - value
+                  required:
+                  - order_id
+                  - date
+                  - total
+                  - user
+                  - products
+        '400':
+          description: Invalid date format. Use yyyy-mm-dd valid.
+  "/api/v1/products/{id}":
+    get:
+      summary: Retrieve product
+      tags:
+      - API::V1::Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: retrieve product by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  product_id:
+                    type: integer
+                  value:
+                    type: string
+        '404':
+          description: product not found
+  "/api/v1/products/":
+    get:
+      summary: Retrieve products
+      tags:
+      - API::V1::Products
+      responses:
+        '200':
+          description: Restrieve all products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product_id:
+                      type: integer
+                    value:
+                      type: string
+                  required:
+                  - product_id
+                  - value
+  "/api/v1/transactions/process-file":
+    post:
+      summary: Processa um arquivo de transações
+      tags:
+      - API::V1::Transactions
+      parameters: []
+      responses:
+        '201':
+          description: Process file sucess
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user_id:
+                      type: integer
+                    name:
+                      type: string
+                    orders:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          order_id:
+                            type: integer
+                          total:
+                            type: string
+                          products:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                product_id:
+                                  type: integer
+                                value:
+                                  type: string
+        '404':
+          description: Empty parameter file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Empty data file
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: file
+        description: Arquivo txt contendo pedidos
+  "/api/v1/users/{id}":
+    get:
+      summary: Retrieve user
+      tags:
+      - API::V1::Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: integer
+                  name:
+                    type: string
+        '404':
+          description: User not found
+  "/api/v1/users/":
+    get:
+      summary: Retrieve all users
+      tags:
+      - API::V1::Users
+      responses:
+        '200':
+          description: Retrieve all users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+                  required:
+                  - id
+                  - name
+                  - created_at
+                  - updated_at
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000

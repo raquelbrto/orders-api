@@ -28,5 +28,10 @@ module OrdersApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.cache_store = :redis_cache_store, {
+      url: ENV["REDIS_URL"] || "redis://localhost:6379/1",
+      password: ENV["REDIS_PASSWORD"], expires_in: 6000.seconds
+    }
+    config.action_controller.perform_caching = true
   end
 end

@@ -2,26 +2,19 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host:  <%= ENV["DATABASE_HOST"] %>
+  port:  <%= ENV["DATABASE_PORT"] %>
 
 development:
   <<: *default
-  database: orders_api_development
-  username: postgres	
-  password: admin
-  host: localhost
-  port: 5432
+  database: <%= ENV["DATABASE_NAME"] %>_development
 
 test:
   <<: *default
-  database: orders_api_test
-  username: postgres	
-  password: admin
-  host: localhost
-  port: 5432
+  database: <%= ENV["DATABASE_NAME"] %>_test
 
 production:
   <<: *default
-  database: orders_api_production
-  username: orders_api
-  password: <%= ENV["TESTE_API_DATABASE_PASSWORD"] %>
+  database: <%= ENV["DATABASE_NAME"] %>
