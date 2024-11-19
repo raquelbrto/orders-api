@@ -54,9 +54,9 @@ Caso tenha o docker instalado, use os seguintes comandos para subir o conteiner 
 
 + #### **Processa o arquivo txt recebido e retorna o json**
 
-```http
-  GET /api/v1/transactions/process-file
-```
+    ```http
+    GET /api/v1/transactions/process-file
+    ```
 
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
@@ -102,9 +102,9 @@ Exemplo de resposta:
 ## Orders
 + #### **Retorna um pedido**
 
-```http
-  GET /api/v1/orders/{id}
-```
+    ```http
+    GET /api/v1/orders/{id}
+    ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
@@ -130,9 +130,9 @@ Exemplo resposta:
 
 + #### **Retorna uma lista de pedidos**
 
-```http
-  GET /api/v1/orders/{id}
-```
+    ```http
+    GET /api/v1/orders/{id}
+    ```
 Exemplo resposta: 
 
     [
@@ -186,18 +186,18 @@ Exemplo resposta:
 
 ### Swagger
 
-```http
-  GET /api-docs/index.html
-```
+    ```http
+    GET /api-docs/index.html
+    ```
 Rota de acesso ao swagger ui onde é possivel vizualizar e testar os endpoints.
 
 ### Products
 
  + #### **Retorna um produto**
 
-```http
-  GET /api/v1/products/{id}
-```
+    ```http
+    GET /api/v1/products/{id}
+    ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
@@ -212,9 +212,9 @@ Exemplo resposta:
 
 + #### **Retorna uma lista de produtos**
 
-```http
-  GET /api/v1/products/
-```
+    ```http
+    GET /api/v1/products/
+    ```
 Exemplo resposta:
 
     [
@@ -226,9 +226,9 @@ Exemplo resposta:
 
 + #### **Retorna um produto**
 
-```http
-  GET /api/v1/users/{id}
-```
+    ```http
+    GET /api/v1/users/{id}
+    ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
@@ -243,9 +243,9 @@ Exemplo resposta:
 
 + #### **Retorna uma lista de usuarios**
 
-```http
-  GET /api/v1/users/
-```
+    ```http
+    GET /api/v1/users/
+    ```
 Exemplo resposta:
 
     [
