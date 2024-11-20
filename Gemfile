@@ -29,6 +29,8 @@ gem "dotenv", "~> 3.1", ">= 3.1.2"
 gem "redis-rails"
 gem "rswag-api"
 gem "rswag-ui"
+gem 'sidekiq', '~> 7.3', '>= 7.3.1'
+gem 'sidekiq-unique-jobs'
 
 group :test do
   gem "simplecov", require: false
