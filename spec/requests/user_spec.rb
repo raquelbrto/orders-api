@@ -36,22 +36,28 @@ RSpec.describe 'api/v1/users', type: :request do
       produces 'application/json'
 
       response '200', 'Retrieve all users' do
-        schema type: :array,
-        items: {
-          type: :object,
-          properties: {
-            id: { type: :integer },
-            name: { type: :string },
-            created_at: { type: :string, format: 'date-time' },
-             updated_at: { type: :string, format: 'date-time' }
-          },
-          required: [ 'id', 'name', 'created_at', 'updated_at' ]
+        schema type: :object,
+        properties: {
+          results: {
+            type: :array,
+            items: {
+              type: :object,
+              properties: {
+                id: { type: :integer },
+                name: { type: :string },
+                created_at: { type: :string, format: 'date-time' },
+                updated_at: { type: :string, format: 'date-time' }
+              },
+              required: [ 'id', 'name', 'created_at', 'updated_at' ]
+            }
+          }
         }
 
         let!(:user) { create_list(:user, 3) }
 
         run_test! do |response|
-          users = JSON.parse(response.body)
+          parsed_response = JSON.parse(response.body)
+          users = parsed_response["results"]
           expect(users.count).to eq(3)
         end
       end
