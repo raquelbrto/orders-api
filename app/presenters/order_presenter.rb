@@ -21,7 +21,7 @@ class OrderPresenter
       order_mapper = @order.map do |order|
         order_info(order)
       end
-      { data: order_mapper, status: 200 }
+      { data: { results: order_mapper }, status: 200 }
     rescue StandardError => e
       Rails.logger.error("Error #{e.message}")
       error_message

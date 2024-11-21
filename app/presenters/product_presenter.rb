@@ -24,7 +24,7 @@ class ProductPresenter
 
   def show_all
     begin
-      { data: @product, status: 200 }
+      { data: { results: @product }, status: 200 }
     rescue StandardError => e
       Rails.logger.error("Error #{e.message}")
       error_message
