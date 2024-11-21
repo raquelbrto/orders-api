@@ -11,27 +11,29 @@ RSpec.describe 'api/v1/transactions', type: :request do
       parameter name: :file, in: :formData, type: :file, description: 'Arquivo txt contendo pedidos'
 
       response '201', 'Process file sucess' do
-        schema type: :array,
-                items: {
-                  type: :object,
-                  properties: {
-                    user_id: { type: :integer },
-                    name: { type: :string },
-                    orders: {
-                      type: :array,
-                      items: {
-                        type: :object,
-                        properties: {
-                          order_id: { type: :integer },
-                          total: { type: :string },
-                          products: {
-                            type: :array,
-                            items: {
-                              type: :object,
-                              properties: {
-                                product_id: { type: :integer },
-                                value: { type: :string }
-                              }
+        schema type: :object,
+        properties: {
+          results: {
+            type: :array,
+              items: {
+                type: :object,
+                properties: {
+                  user_id: { type: :integer },
+                  name: { type: :string },
+                  orders: {
+                    type: :array,
+                    items: {
+                      type: :object,
+                      properties: {
+                        order_id: { type: :integer },
+                        total: { type: :string },
+                        products: {
+                          type: :array,
+                          items: {
+                            type: :object,
+                            properties: {
+                              product_id: { type: :integer },
+                              value: { type: :string }
                             }
                           }
                         }
@@ -39,6 +41,10 @@ RSpec.describe 'api/v1/transactions', type: :request do
                     }
                   }
                 }
+              }
+            }
+          }
+
         let(:file) { fixture_file_upload('/data_test.txt', 'text/plain') }
         run_test!
       end
