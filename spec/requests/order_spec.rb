@@ -57,39 +57,46 @@ RSpec.describe 'api/v1/orders', type: :request do
       produces 'application/json'
 
       response '200', 'Orders found' do
-        schema type: :array,
-          items: {
-            type: :object,
-            properties: {
-              order_id: { type: :integer },
-              date: { type: :string, format: 'date' },
-              total: { type: :string, format: 'float' },
-              user: {
+        schema type: :object,
+          properties: {
+            results: {
+              type: :array,
+              items: {
                 type: :object,
                 properties: {
-                  user_id: { type: :integer },
-                  name: { type: :string }
-                },
-                required: [ 'user_id', 'name' ]
-              },
-              products: {
-                type: :array,
-                items: {
-                  type: :object,
-                  properties: {
-                    product_id: { type: :integer },
-                    value: { type: :string, format: 'float' }
+                  order_id: { type: :integer },
+                  date: { type: :string, format: 'date' },
+                  total: { type: :string, format: 'float' },
+                  user: {
+                    type: :object,
+                    properties: {
+                      user_id: { type: :integer },
+                      name: { type: :string }
+                    },
+                    required: [ 'user_id', 'name' ]
                   },
-                  required: [ 'product_id', 'value' ]
-                }
+                  products: {
+                    type: :array,
+                    items: {
+                      type: :object,
+                      properties: {
+                        product_id: { type: :integer },
+                        value: { type: :string, format: 'float' }
+                      },
+                      required: [ 'product_id', 'value' ]
+                    }
+                  }
+                },
+                required: [ 'order_id', 'date', 'total', 'user', 'products' ]
               }
-            },
-            required: [ 'order_id', 'date', 'total', 'user', 'products' ]
-          }
+            }
+          },
+          required: [ 'results' ]
         let!(:orders) { create_list(:order, 3) }
 
         run_test! do |response|
-          orders = JSON.parse(response.body)
+          parsed_response = JSON.parse(response.body)
+          orders = parsed_response["results"]
           expect(orders.count).to eq(3)
         end
       end
@@ -105,41 +112,49 @@ RSpec.describe 'api/v1/orders', type: :request do
       parameter name: :end_date, in: :query, type: :string, description: 'End date (YYYY-MM-DD)', example: '2024-11-18'
 
       response '200', 'Orders found' do
-        schema type: :array,
-          items: {
-            type: :object,
-            properties: {
-              order_id: { type: :integer },
-              date: { type: :string, format: 'date' },
-              total: { type: :string, format: 'float' },
-              user: {
+        schema type: :object,
+          properties: {
+            results: {
+              type: :array,
+              items: {
                 type: :object,
                 properties: {
-                  user_id: { type: :integer },
-                  name: { type: :string }
-                },
-                required: [ 'user_id', 'name' ]
-              },
-              products: {
-                type: :array,
-                items: {
-                  type: :object,
-                  properties: {
-                    product_id: { type: :integer },
-                    value: { type: :string, format: 'float' }
+                  order_id: { type: :integer },
+                  date: { type: :string, format: 'date' },
+                  total: { type: :string, format: 'float' },
+                  user: {
+                    type: :object,
+                    properties: {
+                      user_id: { type: :integer },
+                      name: { type: :string }
+                    },
+                    required: [ 'user_id', 'name' ]
                   },
-                  required: [ 'product_id', 'value' ]
-                }
+                  products: {
+                    type: :array,
+                    items: {
+                      type: :object,
+                      properties: {
+                        product_id: { type: :integer },
+                        value: { type: :string, format: 'float' }
+                      },
+                      required: [ 'product_id', 'value' ]
+                    }
+                  }
+                },
+                required: [ 'order_id', 'date', 'total', 'user', 'products' ]
               }
             },
-            required: [ 'order_id', 'date', 'total', 'user', 'products' ]
-         }
+            required: [ 'results' ]
+          }
+
         let!(:orders) { create_list(:order, 3) }
         let(:start_date) { '2021-02-20' }
-        let(:end_date) { '2024-11-18' }
+        let(:end_date) { Date.today.strftime('%Y-%m-%d') }
 
         run_test! do |response|
-          orders = JSON.parse(response.body)
+          parsed_response = JSON.parse(response.body)
+          orders = parsed_response["results"]
           expect(orders.count).to eq(3)
         end
       end

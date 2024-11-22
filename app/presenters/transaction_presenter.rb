@@ -4,10 +4,11 @@ class TransactionPresenter
   end
 
   def as_json
-    puts @transaction
-    @transaction.map do |transaction|
+    transactions_mapper = @transaction.map do |transaction|
       mapper_transaction(transaction)
     end
+
+    { data: { elements: transactions_mapper }, status: 201 }
   end
 
   def show
@@ -25,7 +26,7 @@ class TransactionPresenter
 
   def show_all
     begin
-      { data: @transaction, status: 200 }
+      { data: { results: @transaction }, status: 200 }
     rescue StandardError => e
       Rails.logger.error("Error #{e.message}")
       error_message

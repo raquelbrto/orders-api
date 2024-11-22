@@ -10,7 +10,7 @@ A arquitetura implementada foi a clean architecture, onde implementi as camadas 
 
 ## Setup
 ### 1. Clone o repositorio 
-      git clone https://github.com/viniciusborgeis/luizalabs-test
+      git clone git@github.com:raquelbrto/orders-api.git
     
 ### 2. Crie o .env do projeto
       cp .env.sample .env

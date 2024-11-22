@@ -35,40 +35,55 @@ RSpec.describe 'api/v1/products', type: :request do
       produces 'application/json'
 
       response '200', 'Retrieve' do
-        schema type: :array,
-        items: {
-          type: :object,
-          properties: {
-            product_id: { type: :integer },
-            value: { type: :string }
-          },
-          required: [ 'product_id', 'value' ]
+        schema type: :object,
+        properties: {
+          results: {
+            type: :array,
+            items: {
+              type: :object,
+              properties: {
+                product_id: { type: :integer },
+                value: { type: :string },
+                id: { type: :integer },
+                created_at: { type: :string, format: 'date-time' },
+                updated_at: { type: :string, format: 'date-time' }
+              },
+              required: [ 'product_id', 'value', 'id', 'created_at', 'updated_at' ]
+            }
+          }
         }
 
         let!(:product) { create_list(:product_response, 3) }
 
         run_test! do |response|
-          orders = JSON.parse(response.body)
-          expect(orders.count).to eq(3)
+          parsed_response = JSON.parse(response.body)
+          product = parsed_response["results"]
+          expect(product.count).to eq(3)
         end
       end
 
-      response '200', 'Retrieve all products' do
-        schema type: :array,
-        items: {
-          type: :object,
-          properties: {
-            product_id: { type: :integer },
-            value: { type: :string }
-          },
-          required: [ 'product_id', 'value' ]
+      response '200', 'Retrieve response empty' do
+        schema type: :object,
+        properties: {
+          results: {
+            type: :array,
+            items: {
+              type: :object,
+              properties: {
+                product_id: { type: :integer },
+                value: { type: :string },
+                id: { type: :integer },
+                created_at: { type: :string, format: 'date-time' },
+                updated_at: { type: :string, format: 'date-time' }
+              },
+              required: [ 'product_id', 'value', 'id', 'created_at', 'updated_at' ]
+            }
+          }
         }
 
-        let!(:product) { create_list(:product_response, 3) }
-
         run_test! do |response|
-          orders = JSON.parse(response.body)
-          expect(orders.count).to eq(3)
+          body = JSON.parse(response.body)
+          expect(body['results']).to eq([])
         end
       end
     end
